@@ -1,47 +1,54 @@
 require_relative './math'
 require_relative './zodiac'
 require_relative './celestial_body'
-
-julian_day = gregorian_calendar_to_julian_day(1999, 1, 6, 12.0)
-t          = julian_day_to_t(julian_day)
-ayanamsa   = lahiri_ayanamsa(julian_day)
+require_relative './moon'
 
 mercury = CelestialBody.new('./VSOP87D.mer')
-venus = CelestialBody.new('./VSOP87D.ven')
-earth = CelestialBody.new('./VSOP87D.ear')
-mars = CelestialBody.new('./VSOP87D.mar')
+venus   = CelestialBody.new('./VSOP87D.ven')
+earth   = CelestialBody.new('./VSOP87D.ear')
+mars    = CelestialBody.new('./VSOP87D.mar')
 jupiter = CelestialBody.new('./VSOP87D.jup')
-saturn = CelestialBody.new('./VSOP87D.sat')
-uranus = CelestialBody.new('./VSOP87D.ura')
+saturn  = CelestialBody.new('./VSOP87D.sat')
+uranus  = CelestialBody.new('./VSOP87D.ura')
 neptune = CelestialBody.new('./VSOP87D.nep')
+
+PLANETS = {
+  "Mercury" => mercury,
+  "Venus"   => venus,
+  "Mars"    => mars,
+  "Jupiter" => jupiter,
+  "Saturn"  => saturn,
+  "Uranus"  => uranus,
+  "Neptune" => neptune,
+}
 
 timezone_offset = 0 # GMT
 julian_day = gregorian_datetime_to_julian_day(1999, 1, 6, 20, 2, timezone_offset)
-
-PLANETS = {
-    "Mercury"  => mercury,
-    "Venus"    => venus,
-    "Mars"     => mars,
-    "Jupiter"  => jupiter,
-    "Saturn"   => saturn,
-    "Uranus"   => uranus,
-    "Neptune"  => neptune,
-}
-
-t        = julian_day_to_t(julian_day)
-ayanamsa = lahiri_ayanamsa(julian_day)
+t          = julian_day_to_t(julian_day)
+ayanamsa   = lahiri_ayanamsa(julian_day)
 
 earth_cartesian = earth.cartesian_coordinate(t)
+radians_to_degrees = 180.0 / Math::PI
 
-# Sun: Earth heliocentric longitude + 180
-sun_tropical = ((earth.coordinate(CelestialBody::LONGITUDE, t) * 180 / Math::PI) + 180) % 360
-puts "Sun #{zodiac_position(sun_tropical, ayanamsa)}"
+# Gather every body's tropical longitude in degrees into one hash.
+tropical_longitudes = {}
 
-# Planets: geocentric = planet_heliocentric - earth_heliocentric
+tropical_longitudes["Sun"] = sun_geocentric_spherical(earth, t).longitude * radians_to_degrees
+
+tropical_longitudes["Moon"] = moon_geocentric_longitude(julian_day)
+
 PLANETS.each do |name, body|
-    geocentric = cartesian_to_spherical(body.cartesian_coordinate(t) - earth_cartesian)
-    tropical_degrees = geocentric.longitude * 180 / Math::PI
-    puts "#{name} #{zodiac_position(tropical_degrees, ayanamsa)}"
+  geocentric = cartesian_to_spherical(body.cartesian_coordinate(t) - earth_cartesian)
+  tropical_longitudes[name] = geocentric.longitude * radians_to_degrees
+end
+
+# Print the chart: each body's sidereal position.
+puts "Chart for JD #{julian_day} (ayanamsa #{ayanamsa.round(4)}°)"
+puts
+
+tropical_longitudes.each do |name, tropical_degrees|
+  position = zodiac_position(tropical_degrees, ayanamsa)
+  puts format("%-8s %s", name, position)
 end
 
 __END__

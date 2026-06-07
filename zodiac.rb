@@ -9,7 +9,11 @@ ZodiacPosition = Struct.new(:sign, :degrees_in_sign, :longitude) do
     def to_s
         whole_degrees = degrees_in_sign.floor
         minutes = ((degrees_in_sign - whole_degrees) * 60).round
-        format("%d°%02d' %s", whole_degrees, minutes, sign)
+        if minutes == 60
+            whole_degrees += 1
+            minutes = 0
+        end
+        return format("%d°%02d' %s", whole_degrees, minutes, sign)
     end
 end
 

@@ -17,3 +17,8 @@ def load_checks(file_path = './vsop87.chk')
     end
     return checks
 end
+
+def assert_close(got, want, label, tolerance = 1e-5)
+    ok = (got - want).abs < tolerance
+    puts "#{ok ? 'PASS' : 'FAIL'}  #{label}: got #{got.round(6)}, want #{want}"
+end
