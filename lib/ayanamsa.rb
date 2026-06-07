@@ -1,5 +1,4 @@
 # Each ayanamsa as { value at J2000 (degrees), annual rate (degrees/year) }.
-# CONSTANTS ARE FROM MEMORY — verify each before relying on it.
 AYANAMSA_MODELS = {
     lahiri:        { at_j2000: 23.85,  rate: 50.2876 / ARCSECONDS_PER_DEGREE },
     raman:         { at_j2000: 21.98,  rate: 50.2876 / ARCSECONDS_PER_DEGREE },

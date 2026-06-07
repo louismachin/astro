@@ -1,4 +1,4 @@
-require_relative './math'
+require_relative './constants'
 require_relative './zodiac'
 require_relative './celestial_body'
 require_relative './moon'
@@ -6,6 +6,8 @@ require_relative './output'
 require_relative './chart'
 require_relative './thelema'
 require_relative './ayanamsa'
+require_relative './position'
+require_relative './time'
 
 MERCURY = CelestialBody.new('./datasets/VSOP87D.mer')
 VENUS   = CelestialBody.new('./datasets/VSOP87D.ven')
