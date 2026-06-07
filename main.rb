@@ -59,27 +59,13 @@ end
 
 # Print the chart: each body's sidereal position.
 puts "Chart for JD #{julian_day} (ayanamsa #{ayanamsa.round(4)}°)"
-puts
 
 tropical_longitudes.each do |name, tropical_degrees|
   position = zodiac_position(tropical_degrees, ayanamsa)
   puts format("%-8s %s", name, position)
 end
 
+require_relative './output'
 
-
-__END__
-
-require_relative './check'
-
-earth_checks = load_checks.select { |check| check.version == 'D' && check.body.upcase == 'EARTH' }
-earth_checks.sample(5).each do |check|
-    t = (check.julian_day - 2451545.0) / 365250.0
-    longitude = earth.coordinate(1, t) % (2 * Math::PI)
-    latitude  = earth.coordinate(2, t)
-    radius    = earth.coordinate(3, t)
-    puts "Julian Day: #{check.julian_day}"
-    puts "- longitude: computed #{longitude.round(10)}, expected #{check.longitude}"
-    puts "- latitude:  computed #{latitude.round(10)}, expected #{check.latitude}"
-    puts "- radius:    computed #{radius.round(10)}, expected #{check.radius}"
-end
+result = render_north_indian_chart(tropical_longitudes, ayanamsa, "./#{julian_day}.svg")
+puts "Created chart: #{result}"

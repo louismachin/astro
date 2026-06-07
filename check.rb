@@ -22,3 +22,17 @@ def assert_close(got, want, label, tolerance = 1e-5)
     ok = (got - want).abs < tolerance
     puts "#{ok ? 'PASS' : 'FAIL'}  #{label}: got #{got.round(6)}, want #{want}"
 end
+
+__END__
+
+earth_checks = load_checks.select { |check| check.version == 'D' && check.body.upcase == 'EARTH' }
+earth_checks.sample(5).each do |check|
+    t = (check.julian_day - 2451545.0) / 365250.0
+    longitude = earth.coordinate(1, t) % (2 * Math::PI)
+    latitude  = earth.coordinate(2, t)
+    radius    = earth.coordinate(3, t)
+    puts "Julian Day: #{check.julian_day}"
+    puts "- longitude: computed #{longitude.round(10)}, expected #{check.longitude}"
+    puts "- latitude:  computed #{latitude.round(10)}, expected #{check.latitude}"
+    puts "- radius:    computed #{radius.round(10)}, expected #{check.radius}"
+end

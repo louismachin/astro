@@ -23,3 +23,11 @@ def zodiac_position(tropical_longitude, ayanamsa = 0.0)
     sign_index = (longitude / DEGREES_PER_SIGN).floor
     ZodiacPosition.new(SIGNS[sign_index], longitude % DEGREES_PER_SIGN, longitude)
 end
+
+def sign_index(position)
+    (position.longitude / DEGREES_PER_SIGN).floor
+end
+
+def whole_sign_house(position, ascendant)
+    ((sign_index(position) - sign_index(ascendant)) % SIGNS.length) + 1
+end
