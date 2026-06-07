@@ -94,10 +94,10 @@ end
 # Mean obliquity of the ecliptic (Meeus eq. 22.2).
 OBLIQUITY_DEGREES_AT_J2000 = 23.0
 OBLIQUITY_ARCMINUTES       = 26.0
-OBLIQUITY_ARCSECONDS_BASE  = 21.448      # the seconds part of 23°26'21.448" at J2000
-OBLIQUITY_LINEAR_TERM      = 46.8150     # arcseconds the tilt decreases per century
-OBLIQUITY_QUADRATIC_TERM   = 0.00059     # arcseconds per century²
-OBLIQUITY_CUBIC_TERM       = 0.001813    # arcseconds per century³
+OBLIQUITY_ARCSECONDS_BASE  = 21.448   # the seconds part of 23°26'21.448" at J2000
+OBLIQUITY_LINEAR_TERM      = 46.8150  # arcseconds the tilt decreases per century
+OBLIQUITY_QUADRATIC_TERM   = 0.00059  # arcseconds per century²
+OBLIQUITY_CUBIC_TERM       = 0.001813 # arcseconds per century³
 
 def mean_obliquity(julian_day)
     centuries = julian_centuries(julian_day)
@@ -112,7 +112,7 @@ def mean_obliquity(julian_day)
         (arcseconds / ARCSECONDS_PER_DEGREE)
 end
 
-# Ecliptic longitude of the ascendant, in degrees [0, 360).
+# Ecliptic longitude of the ascendant, in degrees [0, 360].
 # All three arguments in DEGREES.
 
 def ascendant_longitude(local_sidereal_time, obliquity, latitude) # all degrees
@@ -137,9 +137,9 @@ ARCSECONDS_PER_DEGREE = 3600.0
 # The rigorous definition pins the sidereal zero point to a reference star and
 # the rate is not perfectly constant, so refine this later.
 
-LAHIRI_AT_J2000      = 23.85 # degrees at the epoch
+LAHIRI_AT_J2000 = 23.85 # degrees at the epoch
 PRECESSION_PER_YEAR  = 50.2876 / ARCSECONDS_PER_DEGREE # degrees per year
-DAYS_PER_YEAR        = 365.25
+DAYS_PER_YEAR = 365.25
 
 def lahiri_ayanamsa(julian_day)
     years_since_j2000 = (julian_day - J2000_JULIAN_DAY) / DAYS_PER_YEAR
