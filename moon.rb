@@ -143,3 +143,13 @@ def moon_geocentric_longitude(julian_day)
     )
     return (mean_longitude + (table_sum + additive_sum) / MILLIONTHS_PER_DEGREE) % DEGREES_PER_CIRCLE
 end
+
+# Mean longitude of the Moon's ascending node = Rahu. Degrees [0, 360).
+# Meeus eq. 47.7. centuries = Julian centuries from J2000 (the /36525 variable,
+# same as the Moon - NOT the VSOP millennia t).
+def mean_lunar_node(centuries)
+    evaluate_polynomial(
+        [125.0445479, -1934.1362891, 0.0020754, 1.0 / 467441, -1.0 / 60616000],
+        centuries
+    ) % DEGREES_PER_CIRCLE
+end

@@ -129,6 +129,7 @@ def ascendant_longitude(local_sidereal_time, obliquity, latitude) # all degrees
     return (longitude_radians / RADIANS_PER_DEGREE) % DEGREES_PER_CIRCLE
 end
 
+ARCMINUTES_PER_DEGREE = 60.0
 ARCSECONDS_PER_DEGREE = 3600.0
 
 # Lahiri ayanamsa in degrees. FIRST APPROXIMATION: linear model anchored at
