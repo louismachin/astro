@@ -28,9 +28,9 @@ __END__
 earth_checks = load_checks.select { |check| check.version == 'D' && check.body.upcase == 'EARTH' }
 earth_checks.sample(5).each do |check|
     t = (check.julian_day - 2451545.0) / 365250.0
-    longitude = earth.coordinate(1, t) % (2 * Math::PI)
-    latitude  = earth.coordinate(2, t)
-    radius    = earth.coordinate(3, t)
+    longitude = EARTH.coordinate(1, t) % (2 * Math::PI)
+    latitude  = EARTH.coordinate(2, t)
+    radius    = EARTH.coordinate(3, t)
     puts "Julian Day: #{check.julian_day}"
     puts "- longitude: computed #{longitude.round(10)}, expected #{check.longitude}"
     puts "- latitude:  computed #{latitude.round(10)}, expected #{check.latitude}"

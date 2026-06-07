@@ -11,7 +11,7 @@ def north_indian_chart(latitude, longitude, year, month, day, hour, minute, time
 
     tropical_longitudes = {}
     tropical_longitudes["Ascendant"] = ascendant_tropical
-    tropical_longitudes["Sun"] = sun_geocentric_spherical(EARTH, t).longitude * DEGREES_PER_RADIAN
+    tropical_longitudes["Sun"] = sun_geocentric_spherical(t).longitude * DEGREES_PER_RADIAN
     tropical_longitudes["Moon"] = moon_geocentric_longitude(julian_day)
     tropical_longitudes["Rahu"] = rahu_tropical
     tropical_longitudes["Ketu"] = (rahu_tropical + 180) % 360

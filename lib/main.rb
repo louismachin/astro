@@ -1,6 +1,8 @@
 require_relative './constants'
 require_relative './zodiac'
 require_relative './celestial_body'
+require_relative './planets'
+require_relative './sun'
 require_relative './moon'
 require_relative './output'
 require_relative './chart'
@@ -8,26 +10,6 @@ require_relative './thelema'
 require_relative './ayanamsa'
 require_relative './position'
 require_relative './time'
-
-MERCURY = CelestialBody.new('./datasets/VSOP87D.mer')
-VENUS   = CelestialBody.new('./datasets/VSOP87D.ven')
-EARTH   = CelestialBody.new('./datasets/VSOP87D.ear')
-MARS    = CelestialBody.new('./datasets/VSOP87D.mar')
-JUPITER = CelestialBody.new('./datasets/VSOP87D.jup')
-SATURN  = CelestialBody.new('./datasets/VSOP87D.sat')
-URANUS  = CelestialBody.new('./datasets/VSOP87D.ura')
-NEPTUNE = CelestialBody.new('./datasets/VSOP87D.nep')
-
-PLANETS = {
-    "Mercury" => MERCURY,
-    "Venus"   => VENUS,
-    "Mars"    => MARS,
-    "Jupiter" => JUPITER,
-    "Saturn"  => SATURN,
-    "Uranus"  => URANUS,
-    "Neptune" => NEPTUNE,
-}
-
 
 # puts gregorian_datetime_to_thelemic_datetime(*time_to_gregorian_datetime_values(Time.now))
 time = Time.new('1999-01-06 20:02:00')
