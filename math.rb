@@ -29,6 +29,7 @@ DAYS_PER_MILLENNIUM = 365250.0 # 1000 Julian years
 DAYS_PER_CENTURY    = 36525.0 # 100 Julian years
 DEGREES_PER_CIRCLE = 360.0
 RADIANS_PER_DEGREE = Math::PI / 180.0
+DEGREES_PER_RADIAN = 180.0 / Math::PI
 HALF_CIRCLE = 180.0
 
 def julian_day_to_t(julian_day)

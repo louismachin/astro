@@ -6,20 +6,19 @@ def north_indian_chart(latitude, longitude, year, month, day, hour, minute, time
     obliquity = mean_obliquity(julian_day)
     ascendant_tropical = ascendant_longitude(local_sidereal_time, obliquity, latitude)
     earth_cartesian = EARTH.cartesian_coordinate(t)
-    radians_to_degrees = 180.0 / Math::PI
     centuries = julian_centuries(julian_day)
     rahu_tropical = mean_lunar_node(centuries)
 
     tropical_longitudes = {}
     tropical_longitudes["Ascendant"] = ascendant_tropical
-    tropical_longitudes["Sun"] = sun_geocentric_spherical(EARTH, t).longitude * radians_to_degrees
+    tropical_longitudes["Sun"] = sun_geocentric_spherical(EARTH, t).longitude * DEGREES_PER_RADIAN
     tropical_longitudes["Moon"] = moon_geocentric_longitude(julian_day)
     tropical_longitudes["Rahu"] = rahu_tropical
     tropical_longitudes["Ketu"] = (rahu_tropical + 180) % 360
 
     PLANETS.each do |name, body|
         geocentric = cartesian_to_spherical(body.cartesian_coordinate(t) - earth_cartesian)
-        tropical_longitudes[name] = geocentric.longitude * radians_to_degrees
+        tropical_longitudes[name] = geocentric.longitude * DEGREES_PER_RADIAN
     end
 
     puts "Chart for JD #{julian_day} (ayanamsa #{ayanamsa.round(4)}°)"
