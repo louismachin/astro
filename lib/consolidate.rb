@@ -6,5 +6,5 @@ def consolidated_data(latitude, longitude, year, month, day, hour, minute, timez
 end
 
 def consolidated_data_by_datetime(latitude, longitude, datetime)
-    return consolidated_data_by_datetime(latitude, longitude, *time_to_gregorian_datetime_values(datetime))
+    return consolidated_data(latitude, longitude, *time_to_gregorian_datetime_values(datetime))
 end
