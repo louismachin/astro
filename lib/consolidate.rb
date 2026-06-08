@@ -5,6 +5,12 @@ def consolidated_data(latitude, longitude, year, month, day, hour, minute, timez
     }
 end
 
+def consolidated_data_and_charts(latitude, longitude, year, month, day, hour, minute, timezone_offset, uuid = nil)
+    output_path = uuid ? "./#{uuid}.svg" : nil
+    north_indian_chart(latitude, longitude, year, month, day, hour, minute, timezone_offset, :lahiri, output_path)
+    return consolidated_data(latitude, longitude, year, month, day, hour, minute, timezone_offset)
+end
+
 def consolidated_data_by_datetime(latitude, longitude, datetime)
     return consolidated_data(latitude, longitude, *time_to_gregorian_datetime_values(datetime))
 end

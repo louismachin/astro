@@ -1,7 +1,7 @@
-def north_indian_chart(latitude, longitude, year, month, day, hour, minute, timezone_offset)
+def north_indian_chart(latitude, longitude, year, month, day, hour, minute, timezone_offset, ayanamsa_type = :lahiri, output_path = nil)
     julian_day = gregorian_datetime_to_julian_day(year, month, day, hour, minute, timezone_offset)
     t = julian_day_to_t(julian_day)
-    ayanamsa = ayanamsa(julian_day, :lahiri)
+    ayanamsa = ayanamsa(julian_day, ayanamsa_type)
     local_sidereal_time = local_mean_sidereal_time(julian_day, longitude)
     obliquity = mean_obliquity(julian_day)
     ascendant_tropical = ascendant_longitude(local_sidereal_time, obliquity, latitude)
@@ -21,19 +21,10 @@ def north_indian_chart(latitude, longitude, year, month, day, hour, minute, time
         tropical_longitudes[name] = geocentric.longitude * DEGREES_PER_RADIAN
     end
 
-    # pluto_geocentric = cartesian_to_spherical(pluto_heliocentric_cartesian(julian_day) - earth_cartesian)
-    # tropical_longitudes["Pluto"] = pluto_geocentric.longitude * DEGREES_PER_RADIAN
+    output_path = "./#{julian_day}.svg" unless output_path
+    render_north_indian_chart(tropical_longitudes, ayanamsa, output_path)
 
-    puts "Chart for JD #{julian_day} (ayanamsa #{ayanamsa.round(4)}°)"
-
-    tropical_longitudes.each do |name, tropical_degrees|
-        position = zodiac_position(tropical_degrees, ayanamsa)
-        puts format("%-8s %s", name, position)
-    end
-
-    result = render_north_indian_chart(tropical_longitudes, ayanamsa, "./#{julian_day}.svg")
-    puts "Created chart: #{result}"
-    return result
+    return output_path
 end
 
 def sidereal_chart_values(latitude, longitude, year, month, day, hour, minute, timezone_offset, ayanamsa_type = :lahiri)
