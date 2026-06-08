@@ -33,3 +33,20 @@ task :sun do
     puts "Sunrise: #{sunrise}"
     puts "Sunset: #{sunset}"
 end
+
+task :moon do
+    require_relative './lib/main'
+    time = Time.now
+    year, month, day, _hour, _minute, timezone_offset = time_to_gregorian_datetime_values(time)
+    observer_latitude, observer_longitude = 50.9097, -1.4044 # Southampton
+    puts "distance: #{moon_distance(moon_transit_julian_day(year, month, day, observer_longitude))} km"
+    puts "horizon: #{moon_horizon_altitude(moon_transit_julian_day(year, month, day, observer_longitude))}°"
+    # Lunar Transit
+    transit_julian_day = moon_transit_julian_day(year, month, day, observer_longitude)
+    puts "Lunar transit: #{julian_day_to_local_time(transit_julian_day, timezone_offset)}"
+    # Moonrise & Moonset
+    moonrise_julian_day, moonset_julian_day = moonrise_moonset_julian_day(year, month, day, observer_latitude, observer_longitude)
+    moonrise, moonset = julian_day_to_local_time(moonrise_julian_day, timezone_offset), julian_day_to_local_time(moonset_julian_day, timezone_offset)
+    puts "Moonrise: #{moonrise}"
+    puts "Moonset: #{moonset}"
+end
