@@ -2,12 +2,24 @@ task :run do
     require_relative './lib/main'
 end
 
-task :chart do
+task :clear_charts do
+    `rm ./*.svg`
+end
+
+task :north_indian_chart do
     require_relative './lib/main'
     gmt_timezone_offset = 0 # GMT
     ist_timezone_offset = 5.5 # GMT
-    # north_indian_chart(50.9039, -1.4043, 1999, 1, 6, 20, 02, gmt_timezone_offset)
-    north_indian_chart(26.2442, 92.5378, 1996, 1, 7, 16, 43, ist_timezone_offset)
+    north_indian_chart(50.9039, -1.4043, 1999, 1, 6, 20, 02, gmt_timezone_offset)
+    # north_indian_chart(26.2442, 92.5378, 1996, 1, 7, 16, 43, ist_timezone_offset)
+end
+
+task :western_chart do
+    require_relative './lib/main'
+    gmt_timezone_offset = 0 # GMT
+    ist_timezone_offset = 5.5 # GMT
+    western_chart(50.9039, -1.4043, 1999, 1, 6, 20, 02, gmt_timezone_offset)
+    # western_chart(26.2442, 92.5378, 1996, 1, 7, 16, 43, ist_timezone_offset)
 end
 
 task :thelemic_date do

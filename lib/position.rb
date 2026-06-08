@@ -67,3 +67,9 @@ def ascendant_longitude(local_sidereal_time, obliquity, latitude) # all degrees
 
     return (longitude_radians / RADIANS_PER_DEGREE) % DEGREES_PER_CIRCLE
 end
+
+# General precession in ecliptic longitude, J2000 → date (degrees). Approximate
+# (good to well under an arcminute per century), reusing ARCSECONDS_PER_DEGREE.
+def precession_in_longitude(centuries)
+    (5028.796195 * centuries + 1.1054348 * centuries ** 2) / ARCSECONDS_PER_DEGREE
+end
