@@ -58,7 +58,7 @@ def sidereal_chart_values(latitude, longitude, year, month, day, hour, minute, t
     return result
 end
 
-def western_chart(latitude, longitude, year, month, day, hour, minute, timezone_offset)
+def western_chart(latitude, longitude, year, month, day, hour, minute, timezone_offset, output_path = nil)
     julian_day = gregorian_datetime_to_julian_day(year, month, day, hour, minute, timezone_offset)
     t = julian_day_to_t(julian_day)
     local_sidereal_time = local_mean_sidereal_time(julian_day, longitude)
@@ -79,11 +79,8 @@ def western_chart(latitude, longitude, year, month, day, hour, minute, timezone_
     pluto_geocentric = cartesian_to_spherical(pluto_heliocentric_cartesian(julian_day) - earth_cartesian)
     tropical_longitudes["Pluto"] = pluto_geocentric.longitude * DEGREES_PER_RADIAN
   
-    puts "Western (tropical) chart for JD #{julian_day}"
-    tropical_longitudes.each do |name, tropical_degrees|
-        position = zodiac_position(tropical_degrees) # no ayanamsa → tropical
-        puts format("%-10s %s", name, position)
-    end
+    output_path = "./#{julian_day}.svg" unless output_path
+    render_western_chart(tropical_longitudes, output_path)
   
     return tropical_longitudes
 end
