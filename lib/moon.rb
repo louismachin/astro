@@ -78,32 +78,16 @@ end
 LunarTerm = Struct.new(:elongation, :sun_anomaly, :moon_anomaly, :latitude_arg, :coefficient)
 
 # Meeus table 47.A, longitude column.
-_lunar_elongation = [0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1,
-  1, 2, 2, 4, 2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2,
-  2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2]
-_solar_anomaly = [0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1,
-  0, 1, -1, 0, 0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1,
-  -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0]
-_lunar_anomaly = [1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2,
-  -1, 0, -1, 0, 1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0,
-  -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3,
-  2, 1, -1, 3]
-_moon_node = [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0,
-  0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0]
-_sine_coeff = [6288774, 1274027, 658314, 213618, -185116, -114332,
-  58793, 57066, 53322, 45758, -40923, -34720, -30383,
-  15327, -12528, 10980, 10675, 10034, 8548, -7888,
-  -6766, -5163, 4987, 4036, 3994, 3861, 3665, -2689,
-  -2602, 2390, -2348, 2236, -2120, -2069, 2048, -1773,
-  -1595, 1215, -1110, -892, -810, 759, -713, -700, 691,
-  596, 549, 537, 520, -487, -399, -381, 351, -340, 330,
-  327, -323, 299, 294]
+_lunar_elongation = [0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4, 2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2]
+_solar_anomaly = [0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0, 0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0]
+_lunar_anomaly = [1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0, 1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0, -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3]
+_moon_node = [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0]
+_sine_coeff = [6288774, 1274027, 658314, 213618, -185116, -114332, 58793, 57066, 53322, 45758, -40923, -34720, -30383, 15327, -12528, 10980, 10675, 10034, 8548, -7888, -6766, -5163, 4987, 4036, 3994, 3861, 3665, -2689, -2602, 2390, -2348, 2236, -2120, -2069, 2048, -1773, -1595, 1215, -1110, -892, -810, 759, -713, -700, 691, 596, 549, 537, 520, -487, -399, -381, 351, -340, 330, 327, -323, 299, 294]
 
 MOON_LONGITUDE_TERMS = _lunar_elongation
-  .zip(_solar_anomaly, _lunar_anomaly, _moon_node, _sine_coeff)
-  .map { |row| LunarTerm.new(*row) }
-  .freeze
+    .zip(_solar_anomaly, _lunar_anomaly, _moon_node, _sine_coeff)
+    .map { |row| LunarTerm.new(*row) }
+    .freeze
 
 MILLIONTHS_PER_DEGREE = 1_000_000.0
 
@@ -315,4 +299,27 @@ def moonrise_moonset_julian_day(year, month, day, observer_latitude, observer_lo
     hour_angle_check = hour_angle_at_altitude(latitude, moon_equatorial(transit)[1] * RADIANS_PER_DEGREE, altitude_transit)
     return [nil, nil] if hour_angle_check.nil?
     [rise, set]
+end
+
+# Elongation of the Moon from the Sun, degrees [0, 360). 0 = new, 180 = full.
+def moon_phase_angle(julian_day)
+    t = julian_day_to_t(julian_day)
+    sun_longitude  = sun_geocentric_spherical(t).longitude * DEGREES_PER_RADIAN
+    moon_longitude = moon_geocentric_longitude(julian_day)
+    (moon_longitude - sun_longitude) % DEGREES_PER_CIRCLE
+end
+
+# Fraction of the Moon's disc illuminated, 0.0 (new) to 1.0 (full).
+def moon_illuminated_fraction(julian_day)
+    phase_angle = moon_phase_angle(julian_day) * RADIANS_PER_DEGREE
+    (1 - Math.cos(phase_angle)) / 2.0
+end
+
+MOON_PHASE_NAMES = ["New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Last Quarter", "Waning Crescent",].freeze
+
+def moon_phase_name(julian_day)
+    angle = moon_phase_angle(julian_day)
+    # Eight 45°-wide buckets, centred on the four exact phases.
+    index = (((angle + 22.5) % DEGREES_PER_CIRCLE) / 45.0).floor
+    MOON_PHASE_NAMES[index]
 end

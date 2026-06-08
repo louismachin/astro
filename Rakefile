@@ -49,4 +49,7 @@ task :moon do
     moonrise, moonset = julian_day_to_local_time(moonrise_julian_day, timezone_offset), julian_day_to_local_time(moonset_julian_day, timezone_offset)
     puts "Moonrise: #{moonrise}"
     puts "Moonset: #{moonset}"
+    # Moon phase
+    moon_phase = moon_phase_name(transit_julian_day)
+    puts "Moon phase: #{moon_phase}"
 end
